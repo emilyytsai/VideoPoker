@@ -168,6 +168,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c0aa5c8650949fb9e5364fa26bcddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deal_button: {fileID: 0}
+  hold_button: {fileID: 0}
+  bet_button: {fileID: 0}
 --- !u!1 &47225193
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,6 +1067,7 @@ MonoBehaviour:
   currentBalanceText: {fileID: 896960749}
   winningText: {fileID: 47225195}
   betButton: {fileID: 846343465}
+  hold_toggles: []
 --- !u!1 &922446989
 GameObject:
   m_ObjectHideFlags: 0
@@ -1858,7 +1862,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: -232
+  m_Spacing: -240
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0

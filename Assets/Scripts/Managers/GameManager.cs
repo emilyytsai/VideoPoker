@@ -13,9 +13,9 @@ namespace VideoPoker
 		//-//////////////////////////////////////////////////////////////////////
 		/// 
 
-		//script references
+		//script/class references
 		public Deck deck;
-		public UIManager UI_manager;
+		private UIManager UI_manager;
 
 		//list to store current hand; note* remember to pass 5 to deal_cards so player hand is 5
 		public List<Card> player_hand; 
@@ -33,8 +33,12 @@ namespace VideoPoker
 		
 		//-//////////////////////////////////////////////////////////////////////
 		/// 
-		void Update()
-		{
-		}
+
+		//new_round()
+		//end_round
+		//deal()
+
+		//enable_holding()
+		//from ui manager -> enable_hold_selection()
 	}
 }
