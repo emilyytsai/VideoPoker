@@ -56,7 +56,7 @@ public class Deck
         {
             foreach (var rank in rank_map.Keys)
             {
-                string sprite_name = $"im_card_{suit_map[suit]}{rank_map[rank]}"; //-> img_card_c1.png
+                string sprite_name = $"img_card_{suit_map[suit]}{rank_map[rank]}"; //-> img_card_c1.png
                 Sprite card_sprite = Resources.Load<Sprite>($"Resources/Art/Cards/{sprite_name}");
 
                 Debug.Log($"Loaded: {sprite_name}");

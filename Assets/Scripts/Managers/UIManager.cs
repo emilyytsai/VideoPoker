@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using TMPro;
 
 namespace VideoPoker
 {
@@ -13,9 +12,9 @@ namespace VideoPoker
 	{
 		//text fields
 		[SerializeField]
-		private TextMeshProUGUI currentBalanceText = null;
+		private Text currentBalanceText = null;
 		[SerializeField]
-		private TextMeshProUGUI winningText = null;
+		private Text winningText = null;
 
 		//buttons
 		[SerializeField]
@@ -32,7 +31,7 @@ namespace VideoPoker
 		//betting amounts
 		private int current_bet = 10; //default bet amt
         private const int bet_increment = 10; //raise bet by incremnts of 10
-        private const int max_bet = 100; //limit
+        private const int max_bet = 50; //limit
 
 		//reference player class
 		private Player player;
@@ -42,16 +41,33 @@ namespace VideoPoker
 		//track if its the first deal -> round ends after second deal
 		private bool first_deal = true;
 
+		//reference to game manager script
+		[SerializeField]
+        private GameManager game_manager;
+
 		//-//////////////////////////////////////////////////////////////////////
 		/// 
 		void Start()
 		{
+			game_manager = FindObjectOfType<GameManager>();
+			player = new Player();
+
 			betButton.onClick.AddListener(OnBetButtonPressed);
 			holdButton.onClick.AddListener(OnHoldButtonPressed);
 			dealButton.onClick.AddListener(OnDealButtonPressed);
 			
+			//cannot hold at start -> can only hold after dealing
+			holdButton.interactable = false;
+
+			//update UI text
             update_balance(player.balance);
             update_winnings(0);
+
+			//cannot toggle at start
+            foreach (var toggle in hold_toggles)
+            {
+                toggle.gameObject.SetActive(false);
+            }
 		}
 
 		//-//////////////////////////////////////////////////////////////////////
@@ -60,6 +76,8 @@ namespace VideoPoker
 		/// 
 		private void OnBetButtonPressed()
 		{
+			//prevent betting after round ends
+			if (round_over) return;
 			//cant bet when balance is low
 			if (player.balance < bet_increment) return;
 
@@ -67,8 +85,11 @@ namespace VideoPoker
             current_bet += bet_increment;
 			//back to default bet amt if player tries to bet over 100
             if (current_bet > max_bet) current_bet = 10;
-
             player.bet = current_bet;
+
+			//update the bet display text
+            betButton.GetComponentInChildren<Text>().text = "BET: " + current_bet;
+        
 		}
 
 		//start a new round or re-deal
@@ -78,28 +99,57 @@ namespace VideoPoker
             if (player.balance < player.bet) return;
 
 			//new round after redeal
-			if (!round_over)
+			if (first_deal)
             {
+				//first deal = start a new round
+                round_over = false;
+                first_deal = false;
+
                 //reset message from the last round
                 winningText.text = "";
 
 				//NOTE** uncomment after game manager implemntation
 				//deal cards & start round
-				//FindObjectOfType<GameManager>().new_round();
-				//FindObjectOfType<GameManager>().deal();
+				game_manager.new_round();
+				game_manager.deal();
 
                 dealButton.interactable = false;
-                holdButton.interactable = true; // Enable hold button for card selection
-
-                first_deal = false; // Set to false after first deal
-            
+                holdButton.interactable = true; //enable hold button for card selection
+				dealButton.GetComponentInChildren<Text>().text = "Draw"; //change deal to draw
             }
-
-			//reset message from the last round
-            winningText.text = "";
-			//NOTE** uncomment after game manager implemntation
-            //FindObjectOfType<GameManager>().new_round();
-			//FindObjectOfType<GameManager>().deal();
+			//implemenitng re-deal logic
+			else
+            {
+                //second deal/re-deal) = end the round
+                List<int> held_indexes = get_indexes();
+                
+                //redeal cards & evaluate the hand
+                game_manager.redeal(held_indexes);
+                int winnings = game_manager.evaluate_hand();
+                
+                //update players balance with winnings
+                if (winnings > 0) {
+                    player.balance += winnings;
+                    update_winnings(winnings);
+                } else {
+                    update_winnings(0);
+                }
+                update_balance(player.balance);
+                
+                //reset the UI for next round
+                round_over = true;
+                first_deal = true;
+                dealButton.GetComponentInChildren<Text>().text = "Deal";
+                betButton.interactable = true;
+                holdButton.interactable = false;
+                
+                //disable hold toggles and reset them
+                foreach (var toggle in hold_toggles)
+                {
+                    toggle.isOn = false;
+                    toggle.gameObject.SetActive(false);
+                }
+            }
         }
 
 
@@ -111,6 +161,7 @@ namespace VideoPoker
         {
             enable_hold_selection();
             holdButton.interactable = false;
+			dealButton.interactable = true; //enable the draw/deal button for second deal
 		}
 
 		//card selection for players on which cards to hold
@@ -118,7 +169,7 @@ namespace VideoPoker
         {
             foreach (var toggle in hold_toggles)
             {
-                toggle.gameObject.SetActive(true); // Show hold toggles
+                toggle.gameObject.SetActive(true); //enable hold toggles
             }
         }
 
@@ -142,7 +193,7 @@ namespace VideoPoker
 
 		public void update_balance(int balance)
         {
-            currentBalanceText.text = "Balance: " + balance.ToString() + "Credits";
+            currentBalanceText.text = "Balance: " + balance + " Credits";
         }
 
 		//how much credits won per round
@@ -150,12 +201,21 @@ namespace VideoPoker
         {
             if (winnings > 0)
 			{
-                winningText.text = "Jacks or Better! You won: " + winnings.ToString() + "Credits";
+                winningText.text = "Jacks or Better! You won: " + winnings + "Credits";
 			}
             else
 			{
                 winningText.text = "";
 			}
+        }
+
+		//display the hand type that won
+        public void display_winning_hand(string hand_type)
+        {
+            if (!string.IsNullOrEmpty(hand_type))
+            {
+                winningText.text = hand_type + "! " + winningText.text;
+            }
         }
 	}
 }
