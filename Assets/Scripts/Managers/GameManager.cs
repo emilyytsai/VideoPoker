@@ -16,9 +16,11 @@ namespace VideoPoker
 		//script/class references
 		public Deck deck;
 		private UIManager UI_manager;
+		private Player player;
+        private HandEvaluator hand_evaluator;
 
 		//list to store current hand; note* remember to pass 5 to deal_cards so player hand is 5
-		public List<Card> player_hand; 
+		public List<Card> player_hand = new List<Card>();
 
 		//UI buttons
 		public Button deal_button;

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using TMPro;
 
 namespace VideoPoker
 {
@@ -10,19 +11,22 @@ namespace VideoPoker
 	/// 
 	public class UIManager : MonoBehaviour
 	{
+		//text fields
 		[SerializeField]
-		private Text currentBalanceText = null;
-
+		private TextMeshProUGUI currentBalanceText = null;
 		[SerializeField]
-		private Text winningText = null;
+		private TextMeshProUGUI winningText = null;
 
+		//buttons
 		[SerializeField]
 		private Button betButton = null;
+		[SerializeField]
 		private Button holdButton = null;
+		[SerializeField]
 		private Button dealButton = null; //also acts as a draw button
 
-		[SerializeField]
 		//toggles for holding cards
+		[SerializeField]
 		private List<Toggle> hold_toggles = null;
 
 		//betting amounts

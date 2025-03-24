@@ -354,7 +354,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: DEAL
+  m_Text: DEAL/DRAW
 --- !u!222 &216318868
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -599,7 +599,7 @@ RectTransform:
   m_Children:
   - {fileID: 1263415839}
   m_Father: {fileID: 1460036911}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1064,9 +1064,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a156d60f30d946bfa1ec45732c60878, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentBalanceText: {fileID: 896960749}
-  winningText: {fileID: 47225195}
+  currentBalanceText: {fileID: 0}
+  winningText: {fileID: 0}
   betButton: {fileID: 846343465}
+  holdButton: {fileID: 0}
+  dealButton: {fileID: 0}
   hold_toggles: []
 --- !u!1 &922446989
 GameObject:
@@ -1364,12 +1366,12 @@ RectTransform:
   m_Children:
   - {fileID: 216318866}
   m_Father: {fileID: 1460036911}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 150}
+  m_SizeDelta: {x: 533.1278, y: 150}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1249190325
 MonoBehaviour:
@@ -1814,8 +1816,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 846343464}
-  - {fileID: 726948875}
   - {fileID: 1249190324}
+  - {fileID: 726948875}
   m_Father: {fileID: 1055405310}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1862,7 +1864,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: -240
+  m_Spacing: -360
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0

@@ -9,8 +9,6 @@ public class Player
     public int balance = 500;
     //default betting value
     public int bet = 10;
-    //starts w/ 0 creds in winnings
-    public int winnings = 0;
 
     //remove the bet amount from player's balance if they have sufficent amt of creds
     public bool place_bet()
@@ -26,6 +24,6 @@ public class Player
     //method to add wining amt to the players balance
     public void add_winnings(int amount)
     {
-        winnings = balance + amount;
+        balance += amount;
     }
 }
