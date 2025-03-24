@@ -22,7 +22,7 @@ public class Deck
     }
 
     //initialize deck w/ all 52 cards
-    //note** the sprites have this naming pattern: img_card_c1.png
+    //note** the sprites have this naming pattern: img_card_c01.png
     //sprite names must match for Resources.Load<Sprite>() to work prorperly
     private void initialize_deck()
     {
@@ -37,15 +37,15 @@ public class Deck
 
         Dictionary<string, int> rank_map = new Dictionary<string, int>()
         {
-            { "Ace", 1 },
-            { "2", 2 },
-            { "3", 3 },
-            { "4", 4 },
-            { "5", 5 },
-            { "6", 6 },
-            { "7", 7 },
-            { "8", 8 },
-            { "9", 9 },
+            { "01", 1 },
+            { "02", 2 },
+            { "03", 3 },
+            { "04", 4 },
+            { "05", 5 },
+            { "06", 6 },
+            { "07", 7 },
+            { "08", 8 },
+            { "09", 9 },
             { "10", 10 },
             { "Jack", 11 },
             { "Queen", 12 },
@@ -56,8 +56,8 @@ public class Deck
         {
             foreach (var rank in rank_map.Keys)
             {
-                string sprite_name = $"img_card_{suit_map[suit]}{rank_map[rank]}"; //-> img_card_c1.png
-                Sprite card_sprite = Resources.Load<Sprite>($"Resources/Art/Cards/{sprite_name}");
+                string sprite_name = $"img_card_{suit_map[suit]}{rank_map[rank].ToString("D2")}"; //-> img_card_c01.png
+                Sprite card_sprite = Resources.Load<Sprite>($"Art/Cards/{sprite_name}");
 
                 Debug.Log($"Loaded: {sprite_name}");
                 

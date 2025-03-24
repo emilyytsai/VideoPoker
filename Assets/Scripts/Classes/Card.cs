@@ -6,7 +6,7 @@ public class Card
     //get value of the property -> allow to set/change that value (private only in card class)
     public string Suit { get; private set; }
     public string Rank { get; private set; }
-    public Sprite Card_sprite { get; private set; }
+    public Sprite Card_sprite { get; set; }
 
     //constructor
     //initialize the card w/ its suit rank and sprite

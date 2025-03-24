@@ -16,7 +16,7 @@ namespace VideoPoker
 		//script/class references
 		public Deck deck;
 		private UIManager UI_manager;
-		private Player player;
+		public Player player;
         private HandEvaluator hand_evaluator;
 
 		//list to store current hand; note* remember to pass 5 to deal_cards so player hand is 5
@@ -63,8 +63,11 @@ namespace VideoPoker
             deck.shuffle_deck();
             
             //take away bet amt from players balance
-            player.balance -= player.bet;
-            UI_manager.update_balance(player.balance);
+			if (player.place_bet)
+			{
+				player.balance -= player.bet;
+				UI_manager.update_balance(player.balance);
+			}
         }
         
         //deal 5 cards

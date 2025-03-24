@@ -26,10 +26,4 @@ public class Player
     {
         balance += amount;
     }
-
-    //confirm instantiation
-    public Player()
-    {
-        Debug.Log("player instantiated with balance: " + balance);
-    }
 }

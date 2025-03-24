@@ -50,7 +50,7 @@ namespace VideoPoker
 		void Start()
 		{
 			game_manager = FindObjectOfType<GameManager>();
-			player = new Player();
+			player = game_manager.player;
 
 			betButton.onClick.AddListener(OnBetButtonPressed);
 			holdButton.onClick.AddListener(OnHoldButtonPressed);
@@ -115,7 +115,7 @@ namespace VideoPoker
 
                 dealButton.interactable = false;
                 holdButton.interactable = true; //enable hold button for card selection
-				dealButton.GetComponentInChildren<Text>().text = "Draw"; //change deal to draw
+				dealButton.GetComponentInChildren<Text>().text = "DRAW"; //change deal to draw
             }
 			//implemenitng re-deal logic
 			else
@@ -139,7 +139,7 @@ namespace VideoPoker
                 //reset the UI for next round
                 round_over = true;
                 first_deal = true;
-                dealButton.GetComponentInChildren<Text>().text = "Deal";
+                dealButton.GetComponentInChildren<Text>().text = "DEAL";
                 betButton.interactable = true;
                 holdButton.interactable = false;
                 
@@ -170,6 +170,7 @@ namespace VideoPoker
             foreach (var toggle in hold_toggles)
             {
                 toggle.gameObject.SetActive(true); //enable hold toggles
+				Debug.Log("Toggles = on");
             }
         }
 
@@ -201,7 +202,7 @@ namespace VideoPoker
         {
             if (winnings > 0)
 			{
-                winningText.text = "Jacks or Better! You won: " + winnings + "Credits";
+                winningText.text = "You won: " + winnings + " Credits";
 			}
             else
 			{
@@ -215,6 +216,7 @@ namespace VideoPoker
             if (!string.IsNullOrEmpty(hand_type))
             {
                 winningText.text = hand_type + "! " + winningText.text;
+				Debug.Log("displayed winnning hand");
             }
         }
 	}
