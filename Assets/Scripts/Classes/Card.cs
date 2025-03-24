@@ -3,7 +3,7 @@ using UnityEngine;
 public class Card
 {
     //getters & setters
-    //get value of the property -> allow to set/change that value
+    //get value of the property -> allow to set/change that value (private only in card class)
     public string Suit { get; private set; }
     public string Rank { get; private set; }
     public Sprite Card_sprite { get; private set; }
@@ -17,7 +17,7 @@ public class Card
         Card_sprite = card_sprite;
     }
 
-    //accessor method
+    //accessor/getter method
     //get the card names
     public string GetCardName()
     {
