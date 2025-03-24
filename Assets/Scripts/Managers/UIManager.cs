@@ -207,7 +207,7 @@ namespace VideoPoker
         {
             if (winnings > 0)
 			{
-                winningText.text = "You won: " + winnings + " Credits";
+                winningText.text = "\nYou won: " + winnings + " Credits";
 			}
             else
 			{
