@@ -63,7 +63,7 @@ namespace VideoPoker
             deck.shuffle_deck();
             
             //take away bet amt from players balance
-			if (player.place_bet)
+			if (player.place_bet())
 			{
 				player.balance -= player.bet;
 				UI_manager.update_balance(player.balance);
