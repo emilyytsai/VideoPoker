@@ -138,6 +138,7 @@ namespace VideoPoker
 				else 
 				{
                     update_winnings(0);
+					winningText.text = "\nNo winning hand :(";
                 }
                 update_balance(player.balance);
                 
