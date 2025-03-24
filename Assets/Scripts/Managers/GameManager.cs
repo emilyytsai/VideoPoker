@@ -65,7 +65,7 @@ namespace VideoPoker
             //take away bet amt from players balance
 			if (player.place_bet())
 			{
-				player.balance -= player.bet;
+				//player.balance -= player.bet; <- place_bet already deducts money
 				UI_manager.update_balance(player.balance);
 			}
         }

@@ -77,7 +77,7 @@ namespace VideoPoker
 		private void OnBetButtonPressed()
 		{
 			//prevent betting after round ends
-			if (round_over) return;
+			if (round_over && !first_deal) return;
 			//cant bet when balance is low
 			if (player.balance < bet_increment) return;
 
@@ -89,6 +89,7 @@ namespace VideoPoker
 
 			//update the bet display text
             betButton.GetComponentInChildren<Text>().text = "BET: " + current_bet;
+			Debug.Log("current bet updated to: " + current_bet);
         
 		}
 
@@ -115,6 +116,7 @@ namespace VideoPoker
 
                 dealButton.interactable = false;
                 holdButton.interactable = true; //enable hold button for card selection
+				betButton.interactable = false; //bet cannot be changed after dealing
 				dealButton.GetComponentInChildren<Text>().text = "DRAW"; //change deal to draw
             }
 			//implemenitng re-deal logic
@@ -128,10 +130,13 @@ namespace VideoPoker
                 int winnings = game_manager.evaluate_hand();
                 
                 //update players balance with winnings
-                if (winnings > 0) {
-                    player.balance += winnings;
+                if (winnings > 0)
+				{
+                    player.add_winnings(winnings);
                     update_winnings(winnings);
-                } else {
+                } 
+				else 
+				{
                     update_winnings(0);
                 }
                 update_balance(player.balance);
