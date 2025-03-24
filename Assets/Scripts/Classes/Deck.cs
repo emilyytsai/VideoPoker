@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Deck
 {
-    //card decks
+    //card decks - list of card objects; card object/property from card class
     //only modify shuffled_deck list in this class
     public List<Card> cards { get; private set; }
     private List<Card> shuffled_deck;
